@@ -1,0 +1,311 @@
+1) materie + prezentare + program
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TestMTPMarinescuMadalina
+{
+    class Materie
+    {
+        private string denumire;
+        private string an;
+        private double nota_lab;
+        private double nota_finala;
+        private List<Prezentare> prezentari;
+
+        public Materie (string denumire, string an, double nota_lab, List<Prezentare> prezentari)
+        {
+            this.denumire = denumire;
+            this.an = an;
+            this.nota_lab = nota_lab;
+            this.prezentari = prezentari;
+            if (calculMedie() != 0)
+            {
+                nota_finala = (nota_lab + calculMedie()) / 2;
+            }
+        }
+        [Description("Denumire materie"), Category("Informatii materie")]
+        public string Denumire
+        {
+            get { return denumire; }
+        }
+        [Description("Anul in care s-a studiat"), Category("Informatii materie")]
+        public string An
+        {
+            get { return an; }
+        }
+        [Description("Nota la laborator"), Category("Informatii materie")]
+        public double Nota_lab
+        {
+            get { return nota_lab; }
+        }
+        [Description("Prezentari"), Browsable(false)]
+        public List<Prezentare> Prezentari
+        {
+            get { return prezentari; }
+        }
+        [Description("Nota finala"), Category("Informatii materie")]
+        public double Nota_finala
+        {
+            get { return nota_finala; }
+        }
+        public double calculMedie()
+        {
+            double nota = 0;
+           // int nr_note_trecere = 0;
+            Prezentare p1 = prezentari.First<Prezentare>();
+            Prezentare p2 = prezentari.Last<Prezentare>();
+            //foreach (Prezentare pr in prezentari)
+            //{
+            if (p1.Nota_examen >= 5)
+            {
+                nota = p1.Nota_examen;
+            }
+            else
+            {
+                if (p2.Nota_examen >=5 )
+                {
+                    nota = p2.Nota_examen;
+                }
+               
+            }
+               
+            //}
+           /* if (nr_note_trecere >= 2)
+            {
+                Prezentare p = prezentari.Last<Prezentare>();
+                nota = p.Nota_examen;
+            }
+            */
+            return nota;
+        }
+
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TestMTPMarinescuMadalina
+{
+    class Prezentare
+    {
+        private string nr_prezentare;
+        private double nota_examen;
+        private DateTime data;
+
+        public Prezentare (string nr_prezentare, double nota_examen, DateTime data)
+        {
+            this.nr_prezentare = nr_prezentare;
+            this.nota_examen = nota_examen;
+            this.data = data;
+        }
+        [Description("Numarul prezentarii"), Category("Informatii prezentare")]
+        public string Nr_prezentare
+        {
+            get { return nr_prezentare; }
+        }
+        [Description("Nota la examen"), Category("Informatii prezentare")]
+        public double Nota_examen
+        {
+            get { return nota_examen; }
+        }
+        [Description("Data examenului"), Category("Informatii prezentare")]
+        public DateTime Data
+        {
+            get { return data; }
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace TestMTPMarinescuMadalina
+{
+    static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
+        }
+    }
+}
+
+
+
+********************************************************
+2) produs + utilizator
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace VarTest4
+{
+    class Produs
+    {
+        private String marca;
+        private String tip;
+        private float pret;
+        private string cantitate;
+        private float total;
+        private float buget;
+
+        public Produs(String marca, String tip, float pret, string cantitate, float total)
+        {
+            this.marca = marca;
+            this.tip = tip;
+            this.pret = pret;
+            this.cantitate = cantitate;
+            this.total = total;
+        }
+
+        public Produs(String marca, String tip, float pret, string cantitate, float total, float buget)
+        {
+            this.marca = marca;
+            this.tip = tip;
+            this.pret = pret;
+            this.cantitate = cantitate;
+            this.total = total;
+            this.buget = buget;
+        }
+
+        public string Marca
+        {
+            get { return marca; }
+            set { marca = value; }
+        }
+
+        public string Tip
+        {
+            get { return tip; }
+            set { tip = value; }
+        }
+
+        public float Pret
+        {
+            get { return pret; }
+            set { pret = value; }
+        }
+
+        public string Cantitate
+        {
+            get { return cantitate; }
+            set { cantitate = value; }
+        }
+
+        public float Total
+        {
+            get { return total; }
+            set { total = value; }
+        }
+
+        public override string ToString()
+        {
+            return marca+" "+tip+" "+pret+" "+cantitate+" "+total;
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace VarTest4
+{
+    class Utilizator
+    {
+        private String nume;
+        private String parola;
+        private List<Produs> produse = new List<Produs>();
+
+        public Utilizator(String nume, String parola)
+        {
+            this.nume = nume;
+            this.parola = parola;
+        }
+
+        public string Nume
+        {
+            get { return nume; }
+        }
+
+        public string Pass
+        {
+            get { return parola; }
+        }
+
+        public List<Produs> Lista
+        {
+            get { return produse; }
+        }
+
+        public void addProdus(Produs p){
+            produse.Add(p);
+        }
+
+        public override string ToString()
+        {
+            foreach (Produs p in produse)
+            {
+                nume += p.ToString()+"\n";
+            }
+            return nume;
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace VarTest4
+{
+    static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
+        }
+    }
+}
+
+
